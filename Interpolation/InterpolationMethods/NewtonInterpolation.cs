@@ -16,23 +16,25 @@ namespace Interpolation
                 throw new ArgumentNullException(nameof(table), "Table is null");
             }
 
-            if (x > table[0][^1])
+            if (x > table.Points[^1].X)
             {
                 throw new ArgumentOutOfRangeException(nameof(x), "Finding value is out of range of table.");
             }
 
-            var dividedDifferences = table[1].ToArray();
+            var dividedDifferences = (from point in table.Points
+                                     select point.Y)
+                                     .ToList();
 
-            double value = table[1][0];
-            int size = table[0].Count;
+            double value = table.Points[0].Y;
+            int size = table.Points.Count;
             double P = 1;
 
             for (int k = 1; k < size; k++)
             {
-                P *= x - table[0][k - 1];
+                P *= x - table.Points[k - 1].X;
                 for (int i = 0; i < (size - k); i++)
                 {
-                    dividedDifferences[i] = (dividedDifferences[i + 1] - dividedDifferences[i]) / (table[0][i + k] - table[0][i]);
+                    dividedDifferences[i] = (dividedDifferences[i + 1] - dividedDifferences[i]) / (table.Points[i + k].X - table.Points[i].X);
                 }
                 value += P * dividedDifferences[0];
             }

@@ -13,15 +13,19 @@ namespace Interpolation
             var degree = 3;
             IInterpolator interpolator;
 
-            var table = BuildTable(1, 2, 0.2, (x) => x * Math.Pow(2, x) - 1);
-            PrintTable(table);
-            Console.WriteLine();
+            var builder = new TableBuilder();
+            builder.StartOfRange = 1;
+            builder.EndOfRange = 2;
+            builder.Increment = 0.2;
+            builder.Function = (x) => x * Math.Pow(2, x) - 1;
+
+            var table = builder.BuildTable();
+            Console.WriteLine(table.ToString());
             
             interpolator = new LagrangeInterpolation();
             foreach (var point in pointsToFind)
             {
-                var range = GetInterpolationalRange(table, point, degree);
-                Console.WriteLine("x: {0}, y: {1}", point, interpolator.GetValue(range, point));
+                Console.WriteLine("x: {0}, y: {1}", point, interpolator.GetValue(builder.BuildTableForInterpolation(point,degree), point));
             }
             Console.WriteLine();
 
@@ -29,13 +33,12 @@ namespace Interpolation
             degree = 2;
             foreach (var point in pointsToFind)
             {
-                var range = GetInterpolationalRange(table, point, degree);
-                Console.WriteLine("x: {0}, y: {1}", point, interpolator.GetValue(range, point));
+                Console.WriteLine("x: {0}, y: {1}", point, interpolator.GetValue(builder.BuildTableForInterpolation(point, degree), point));
             }
             Console.WriteLine();
         }
 
-        static ValuesTable BuildTable(double startValue, double endValue, double shift, Func<double, double> func)
+        static List<List<double>> BuildTable(double startValue, double endValue, double shift, Func<double, double> func)
         {
             if (func is null)
             {
@@ -52,7 +55,7 @@ namespace Interpolation
                 throw new ArgumentOutOfRangeException(nameof(shift),"Shift value must be positive.");
             }
 
-            var table = new ValuesTable();
+            var table = new List<List<double>>();
             for (int i = 0; i < 2; i++)
             {
                 table.Add(new List<double>());
@@ -68,7 +71,7 @@ namespace Interpolation
             return table;
         }
 
-        static void PrintTable(ValuesTable table)
+        static void PrintTable(List<List<double>> table)
         {
             int size = table[0].Count;
             Console.Write("x: ");
@@ -86,7 +89,7 @@ namespace Interpolation
             Console.WriteLine();
         }
 
-        static ValuesTable GetInterpolationalRange(ValuesTable table, double x, int degree)
+        static List<List<double>> GetInterpolationalRange(List<List<double>> table, double x, int degree)
         {
             if (table is null)
             {
@@ -110,7 +113,7 @@ namespace Interpolation
             {
             }
 
-            var returningRange = new ValuesTable();
+            var returningRange = new List<List<double>>();
 
 
             if (index < degree)
