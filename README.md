@@ -6,3 +6,5 @@ Lagrange method
 Newton method
 
 Splain interpolation
+
+Used .NET 6.0 with Visual Studio 2022 Preview
