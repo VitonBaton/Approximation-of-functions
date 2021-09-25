@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using ValuesTable = System.Collections.Generic.List<System.Collections.Generic.List<double>>;
 
+using Interpolation.InterpolationMethods;
+
 namespace Interpolation
 {
     class Program
@@ -36,6 +38,19 @@ namespace Interpolation
                 Console.WriteLine("x: {0}, y: {1}", point, interpolator.GetValue(builder.BuildTableForInterpolation(point, degree), point));
             }
             Console.WriteLine();
+
+            var splineBuilder = new InterpolationSplineBuilder();
+            splineBuilder.Table = table;
+
+            interpolator = splineBuilder.BuildSpline();
+
+            foreach (var point in pointsToFind)
+            {
+                Console.WriteLine("x: {0}, y: {1}", point, interpolator.GetValue(table, point));
+            }
+            Console.WriteLine();
+
+            Console.WriteLine(interpolator.ToString());
         }
 
     }
