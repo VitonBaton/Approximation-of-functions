@@ -1,6 +1,6 @@
 using System;
 
-namespace Interpolation
+namespace Interpolation.InterpolationMethods
 {
     class TableBuilder
     {
@@ -33,9 +33,11 @@ namespace Interpolation
 
             table = new ValuesTable();
 
-            for (; StartOfRange <= EndOfRange; StartOfRange += Increment)
+            var currentX = StartOfRange;
+
+            for (; currentX <= EndOfRange; currentX += Increment)
             {
-                table.Points.Add((StartOfRange, Function(StartOfRange)));
+                table.Points.Add((currentX, Function(currentX)));
             }
 
             return table;
