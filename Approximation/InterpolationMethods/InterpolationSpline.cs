@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interpolation.InterpolationMethods
+namespace Approximation.InterpolationMethods
 {
     class InterpolationSpline : IInterpolator
     {
@@ -56,7 +56,7 @@ namespace Interpolation.InterpolationMethods
 
             for (int i = 0; i < B.Count; i++)
             {
-                stringValue.AppendLine(string.Format($"a[{i + 1}] = {A[i + 1]}, b[{i + 1}] = {B[i]}, c[{i + 1}] = {C[i + 1]}, d[{i + 1}] = {D[i]}"));
+                stringValue.AppendLine(string.Format($"a[{i + 1}] = {A[i + 1],7:###.###}, b[{i + 1}] = {B[i],7:###.###}, c[{i + 1}] = {C[i + 1],7:###.###}, d[{i + 1}] = {D[i],7:###.###}"));
             }
 
             return stringValue.ToString();

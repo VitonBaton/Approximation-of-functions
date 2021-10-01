@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Interpolation.InterpolationMethods
+namespace Approximation
 {
     class ValuesTable
     {
@@ -11,6 +11,21 @@ namespace Interpolation.InterpolationMethods
         public ValuesTable()
         {
             Points = new List<(double X, double Y)>();
+        }
+
+        public ValuesTable(double[] X, double[] Y)
+        {
+            if (X.Length != Y.Length)
+            {
+                throw new ArgumentException("Length of vectors isn't equal");
+            }
+
+            Points = new List<(double X, double Y)>();
+
+            for (int i = 0; i < X.Length; i++)
+            {
+                Points.Add((X[i], Y[i]));
+            }
         }
 
         public override string ToString()

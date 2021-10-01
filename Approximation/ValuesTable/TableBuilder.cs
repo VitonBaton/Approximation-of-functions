@@ -1,6 +1,6 @@
 using System;
 
-namespace Interpolation.InterpolationMethods
+namespace Approximation
 {
     class TableBuilder
     {
