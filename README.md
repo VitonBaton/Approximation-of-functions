@@ -3,14 +3,10 @@ Numerical methods of approximation of functions
 
 List of realized methods:
 
-Lagrange method
-
-Newton method
-
-Splain interpolation
-
-Least squares method
-
+* **Lagrange method**
+* **Newton method**
+* **Splain interpolation**
+* **Least squares method**  
 
 Used libraries: System, MathNet.Numerics
 
