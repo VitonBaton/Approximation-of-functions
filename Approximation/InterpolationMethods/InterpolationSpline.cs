@@ -44,9 +44,9 @@ namespace Approximation.InterpolationMethods
 
             var xDifference = (x - table.Points[index].X);
 
-            return A[index]
+            return A[index - 1]
                 + B[index - 1] * xDifference
-                + C[index] * xDifference * xDifference / 2
+                + C[index - 1] * xDifference * xDifference / 2
                 + D[index - 1] * xDifference * xDifference * xDifference / 6;
         }
 
@@ -56,7 +56,7 @@ namespace Approximation.InterpolationMethods
 
             for (int i = 0; i < B.Count; i++)
             {
-                stringValue.AppendLine(string.Format($"a[{i + 1}] = {A[i + 1],7:###.###}, b[{i + 1}] = {B[i],7:###.###}, c[{i + 1}] = {C[i + 1],7:###.###}, d[{i + 1}] = {D[i],7:###.###}"));
+                stringValue.AppendLine(string.Format($"a[{i + 1}] = {A[i],7:###.###}, b[{i + 1}] = {B[i],7:###.###}, c[{i + 1}] = {C[i],7:###.###}, d[{i + 1}] = {D[i],7:###.###}"));
             }
 
             return stringValue.ToString();

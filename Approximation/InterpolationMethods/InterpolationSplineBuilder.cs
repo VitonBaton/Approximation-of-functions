@@ -26,7 +26,7 @@ namespace Approximation.InterpolationMethods
             var D = FindCoefficientsD(H, C);
             var B = FindCoefficientsB(H, A, C, D);
 
-            return new InterpolationSpline(A.ToList(), B, C.ToList(), D);
+            return new InterpolationSpline(A.Skip(1).ToList(), B, C.Skip(1).ToList(), D);
         }
 
         private static List<double> FindCoefficientsB(List<double> H, List<double> A, List<double> C, List<double> D)
